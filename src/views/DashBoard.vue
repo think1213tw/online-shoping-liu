@@ -1,7 +1,8 @@
 <template>
   <NavBar></NavBar>
-  <div>登入驗證</div>
-  <router-view />
+  <div class="container-fluid">
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -27,7 +28,7 @@ export default {
         // alert('已登出')
         this.$router.push('/loginPage')
       }
-      console.log(res)
+      //   console.log(res)
     })
   }
 }
