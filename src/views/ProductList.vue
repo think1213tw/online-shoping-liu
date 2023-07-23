@@ -74,6 +74,7 @@ export default {
     ProductModal,
     DelModal
   },
+  inject: ['emitter'],
   methods: {
     openModal(isNew, item) {
       console.log(isNew, item)
@@ -116,10 +117,25 @@ export default {
         httpMethods = 'put'
       }
       console.log(api, httpMethods)
+      this.isLoading = true
+
+      productComponnet.hideModal()
       axios[httpMethods](api, { data: this.tempProduct }).then((res) => {
-        productComponnet.hideModal()
-        console.log(res)
-        this.getProducts()
+        if (res.data.success) {
+          console.log(res)
+          this.getProducts()
+          this.emitter.emit('push-message', {
+            style: 'success',
+            title: '更新成功'
+          })
+        } else {
+          this.emitter.emit('push-message', {
+            style: 'danger',
+            title: '更新失敗',
+            content: res.data.message.join('、')
+          })
+        }
+        this.isLoading = false
       })
     },
     delProducts() {

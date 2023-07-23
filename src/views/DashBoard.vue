@@ -1,16 +1,25 @@
 <template>
   <NavBar></NavBar>
-  <div class="container-fluid">
+  <div class="container-fluid mt-3 position-relative">
+    <ToastMessages></ToastMessages>
     <router-view />
   </div>
 </template>
 
 <script>
+import emitter from '@/methods/emitter'
+import ToastMessages from '@/components/ToastMessages.vue'
 import axios from 'axios'
 import NavBar from '../components/NavBar.vue'
 export default {
   components: {
-    NavBar
+    NavBar,
+    ToastMessages
+  },
+  provide() {
+    return {
+      emitter
+    }
   },
   created() {
     // 取得 cookie方法
