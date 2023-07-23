@@ -43,6 +43,7 @@
       </tr>
     </tbody>
   </table>
+  <Pagination :pages="pagination" @emit-pages="getProducts"></Pagination>
   <ProductModal
     ref="productModal"
     :product="tempProduct"
@@ -59,6 +60,7 @@
 import axios from 'axios'
 import ProductModal from '../components/ProductModal.vue'
 import DelModal from '../components/DelModal.vue'
+import Pagination from '../components/Pagination.vue'
 
 export default {
   data() {
@@ -72,7 +74,8 @@ export default {
   },
   components: {
     ProductModal,
-    DelModal
+    DelModal,
+    Pagination
   },
   inject: ['emitter'],
   methods: {
@@ -93,11 +96,15 @@ export default {
       const DelProductComponnet = this.$refs.productDelModal
       DelProductComponnet.showModal()
     },
-    getProducts() {
+    test(page) {
+      console.log(page)
+    },
+    getProducts(page) {
       this.isLoading = true
-      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products`
-      console.log(api)
+      const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`
       axios.get(api).then((res) => {
+        console.log(page)
+        console.log(res.data.pagination)
         this.isLoading = false
 
         this.products = res.data.products
