@@ -104,7 +104,7 @@ export default {
     test(page) {
       console.log(page)
     },
-    getProducts(page) {
+    getProducts(page = 1) {
       this.isLoading = true
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/products?page=${page}`
       axios.get(api).then((res) => {
@@ -117,6 +117,7 @@ export default {
       })
     },
     upDataProducts(item) {
+      // console.log('編輯', item)
       this.tempProduct = item
       console.log(this.tempProduct)
       const productComponnet = this.$refs.productModal

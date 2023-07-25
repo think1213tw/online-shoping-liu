@@ -1,5 +1,4 @@
 export function currency(num) {
-  console.log(num)
   const n = parseInt(num, 10)
   return `${n
     .toFixed(0)

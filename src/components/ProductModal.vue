@@ -8,6 +8,7 @@
     aria-hidden="true"
     ref="modal"
   >
+    <Loading :active="isLoading"></Loading>
     <!-- 請同學自行新增 v-model -->
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content border-0">
@@ -181,6 +182,7 @@
           >
             確認
           </button>
+          <button @click="test(tempProduct)">123</button>
         </div>
       </div>
     </div>
@@ -202,7 +204,8 @@ export default {
   data() {
     return {
       modal: {},
-      tempProduct: {}
+      tempProduct: {},
+      isLoading: false
     }
   },
   //   單向數據流，我們不能直接修改外層資料，所以要把外層資料再賦予內層的資料
@@ -212,6 +215,9 @@ export default {
     }
   },
   methods: {
+    test(id) {
+      console.log(id)
+    },
     showModal() {
       this.modal.show()
     },
@@ -219,6 +225,7 @@ export default {
       this.modal.hide()
     },
     uploadFile() {
+      this.isLoading = true
       const uploagFile = this.$refs.fileInput.files[0]
       //   console.dir(uploagFile)
       //   console.dir(uploagFile)
@@ -230,8 +237,10 @@ export default {
       const api = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/admin/upload`
 
       axios.post(api, formData).then((res) => {
+        this.isLoading = false
         if (res.data.success) {
           this.tempProduct.imageUrl = res.data.imageUrl
+          console.log(this.tempProduct)
         }
       })
     }

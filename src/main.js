@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import VueAxios from 'vue-axios'
 // Import component
 import Loading from 'vue3-loading-overlay'
 // Import stylesheet
@@ -14,6 +15,6 @@ const app = createApp(App)
 app.config.globalProperties.$filters = {
   currency
 }
-app.use(router, store, axios)
+app.use(router, store, axios, VueAxios)
 app.component('Loading', Loading)
 app.mount('#app')
