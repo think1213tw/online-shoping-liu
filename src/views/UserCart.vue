@@ -27,7 +27,20 @@
             >
               查看更多
             </button>
-            <button class="btn btn-outline-danger btn-sm">加入購物車</button>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              @click="addCart(item.id)"
+              :disabled="status.loginItem === item.id"
+            >
+              加入購物車
+              <div
+                class="spinner-border text-primary spinner-grow-sm"
+                role="status"
+                v-if="status.loginItem === item.id"
+              >
+                <!-- <span class="visually-hidden">Loading...</span> -->
+              </div>
+            </button>
           </div>
         </td>
       </tr>
@@ -45,6 +58,9 @@ export default {
       //   pagination: [],
       //   tempProduct: {}, // 主要給編輯資料用
       //   isNew: false,
+      status: {
+        loginItem: '' // 對應品項
+      },
       isLoading: false
     }
   },
@@ -64,6 +80,20 @@ export default {
         // this.products = res.data.products
 
         // this.pagination = res.data.pagination
+      })
+    },
+    addCart(id) {
+      console.log(id)
+      this.status.loginItem = id
+      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/cart`
+      const cart = {
+        product_id: id,
+        qty: 1
+      }
+      console.log(url, cart)
+      axios.post(url, { data: cart }).then((res) => {
+        console.log(res)
+        this.status.loginItem = ''
       })
     },
     getProduct(id) {

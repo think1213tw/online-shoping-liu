@@ -33,8 +33,16 @@
           type="button"
           class="btn btn-outline-danger"
           @click="addToCart(product.id)"
+          :disabled="status.loginItem === product.id"
         >
           加到購物車
+          <div
+            class="spinner-border text-primary spinner-grow-sm"
+            role="status"
+            v-if="status.loginItem === product.id"
+          >
+            <!-- <span class="visually-hidden">Loading...</span> -->
+          </div>
         </button>
       </div>
     </div>
@@ -43,24 +51,37 @@
 
 <script>
 import axios from 'axios'
-
+import { API_ADD_CART, API_PRODUCT_DETAIL } from '@/methods/apiUrl'
 export default {
   data() {
     return {
       productId: '',
       product: {},
-      isLoading: false
+      isLoading: false,
+      status: {
+        loginItem: '' // 對應品項
+      }
     }
   },
   methods: {
     getProduct() {
       this.isLoading = true
-      const url = `${process.env.VUE_APP_API}api/${process.env.VUE_APP_PATH}/product/${this.productId}`
-      axios.get(url).then((res) => {
-        console.log(res)
+      axios.get(API_PRODUCT_DETAIL(this.productId)).then((res) => {
         this.isLoading = false
 
         this.product = res.data.product
+      })
+    },
+    addToCart(id, qty = 1) {
+      this.status.loginItem = id
+      const cart = {
+        product_id: id,
+        qty: qty
+      }
+
+      axios.post(API_ADD_CART, { data: cart }).then((res) => {
+        this.status.loginItem = ''
+        console.log(res)
       })
     }
   },
