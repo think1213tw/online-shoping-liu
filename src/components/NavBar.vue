@@ -29,11 +29,22 @@
         <!-- </li> -->
         <!-- </ul> -->
         <div class="navbar-nav">
-          <router-link to="/dashBoard/productList" class="nav-link"
+          <router-link
+            to="/dashBoard/productList"
+            class="nav-link"
+            active-class="active"
             >產品</router-link
           >
-          <router-link to="/dashBoard/order" class="nav-link">訂單</router-link>
-          <router-link to="/dashBoard/coupons" class="nav-link"
+          <router-link
+            to="/dashBoard/order"
+            class="nav-link"
+            active-class="active"
+            >訂單</router-link
+          >
+          <router-link
+            to="/dashBoard/coupons"
+            class="nav-link"
+            active-class="active"
             >優惠卷</router-link
           >
           <a class="nav-link" href="#" @click.prevent="logout">登出</a>

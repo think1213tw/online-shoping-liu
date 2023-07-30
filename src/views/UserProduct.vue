@@ -51,7 +51,7 @@
 
 <script>
 import axios from 'axios'
-import { API_ADD_CART, API_PRODUCT_DETAIL } from '@/methods/apiUrl'
+import { API_CART_LIST, API_PRODUCT_DETAIL } from '@/methods/frontApi'
 export default {
   data() {
     return {
@@ -79,7 +79,7 @@ export default {
         qty: qty
       }
 
-      axios.post(API_ADD_CART, { data: cart }).then((res) => {
+      axios.post(API_CART_LIST, { data: cart }).then((res) => {
         this.status.loginItem = ''
         console.log(res)
       })
