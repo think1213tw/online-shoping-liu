@@ -15,5 +15,3 @@ export const API_DEL_COUPON = (id) => {
 
 // 取得優惠券列表
 export const API_COUPON_LIST = `${baseUrl}/coupons`
-
-export default baseUrl

@@ -19,4 +19,17 @@ export const API_CART_UPDATE = (productId) => {
 // 套用優惠券
 export const API_ADD_COUPON = `${baseUrl}/coupon`
 
+// 結帳頁面
+export const API_ADD_ORDER = `${baseUrl}/order`
+
+// 取得單筆訂單
+export const API_ORDER = (orderId) => {
+  return `${baseUrl}/order/${orderId}`
+}
+
+// 結帳付款
+export const API_PAY_ORDER = (orderId) => {
+  return `${baseUrl}/pay/${orderId}`
+}
+
 // 使用箭頭函式一定要return
